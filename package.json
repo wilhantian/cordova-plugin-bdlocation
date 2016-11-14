@@ -1,0 +1,36 @@
+{
+  "name": "BDLocation",
+  "version": "1.0.0",
+  "description": "百度定位插件",
+  "cordova": {
+    "id": "cordova-plugin-bdlocation",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wilhantian/cordova-plugin-bdlocation.git"
+  },
+  "keywords": [
+    "cordova",
+    "baidu",
+    "geolocation",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=6.x"
+    }
+  ],
+  "author": "WilhanTian",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/wilhantian/cordova-plugin-bdlocation/issues"
+  },
+  "homepage": "https://github.com/wilhantian/cordova-plugin-bdlocation#readme"
+}

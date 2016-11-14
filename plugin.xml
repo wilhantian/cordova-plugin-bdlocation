@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-bdlocation" version="1.0.0">
+	<name>BDLocation</name>
+	<author>WilhanTian</author>
+	<description>百度定位插件</description>
+	<license>Apache 2.0</license>
+	<keywords>cordova,baidu,geolocation</keywords>
+	
+	<preference name="API_KEY"/>
+	<preference name="IOS_LOCATION_DESC" default="请点击'好'以允许访问。"/>
+
+	<engines>
+		<engine name="cordova" version=">=6.x"/>
+	</engines>
+
+	<js-module name="BDLocation" src="www/BDLocation.js">
+		<clobbers target="BDLocation"/>
+	</js-module>
+
+	<!--android-->
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="BDLocation">
+				<param name="android-package" value="org.apache.cordova.bdlocation.BDLocation"/>
+			</feature>
+		</config-file>
+		<config-file parent="/*" target="AndroidManifest.xml"/>
+
+		<!--权限-->
+		<config-file parent="/manifest" target="AndroidManifest.xml">
+			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+			<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+			<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+			<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+			<uses-permission android:name="android.permission.INTERNET"/>
+			<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+		</config-file>
+
+		<!--基础配置-->
+		<config-file parent="/manifest/application" target="AndroidManifest.xml">
+			<service android:enabled="true" android:name="com.baidu.location.f" android:process=":remote">
+			<intent-filter>
+				<action android:name="com.baidu.location.service_v2.2"/>
+			</intent-filter>
+			</service>
+			<meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="$API_KEY"/>
+		</config-file>
+
+		<!--源文件-->
+		<source-file src="src/android/BDLocation.java" target-dir="src/org/apache/cordova/bdlocation"/>
+
+		<!--库文件-->
+		<source-file src="src/android/BaiduLBS_Android.jar" target-dir="libs"/>
+		<source-file src="src/android/arm64-v8a/liblocSDK7.so" target-dir="libs/arm64-v8a"/>
+		<source-file src="src/android/armeabi/liblocSDK7.so" target-dir="libs/armeabi"/>
+		<source-file src="src/android/armeabi-v7a/liblocSDK7.so" target-dir="libs/armeabi-v7a"/>
+		<source-file src="src/android/x86/liblocSDK7.so" target-dir="libs/x86"/>
+		<source-file src="src/android/x86_64/liblocSDK7.so" target-dir="libs/x86_64"/>
+
+		<!--依赖支持库-->
+		<framework src="com.android.support:appcompat-v7:23.0.1"/>
+	</platform>
+
+	<!--ios-->
+	<platform name="ios">
+		<config-file parent="/*" target="config.xml">
+			<feature name="BDLocation">
+				<param name="ios-package" value="BDLocation"/>
+			</feature>
+		</config-file>
+
+		<!--为了能够在iOS9中正常使用非HTTPS协议-->		
+		<config-file parent="NSAppTransportSecurity" target="*-Info.plist">
+			<dict>
+				<key>NSAllowsArbitraryLoads</key>
+				<true/>
+			</dict>
+		</config-file>
+
+		<!--定位模式 TODO 设置为前后台永远定位-->
+		<!--NSLocationAlwaysUsageDescription / NSLocationWhenInUseUsageDescription-->
+		<config-file parent="NSLocationAlwaysUsageDescription" target="*-Info.plist">
+			<string>$IOS_LOCATION_DESC</string>
+		</config-file>
+		
+		<!--API_KEY-->
+		<config-file parent="BDLocation" target="*-Info.plist">
+			<dict>
+				<key>API_KEY</key>
+				<string>$API_KEY</string>
+			</dict>
+		</config-file>
+
+		<!--源文件-->
+		<header-file src="src/ios/BDLocation.h"/>
+		<source-file src="src/ios/BDLocation.mm"/>
+
+		<!--库文件-->
+		<framework src="src/ios/BaiduMapAPI_Base.framework" custom="true"/>
+		<framework src="src/ios/BaiduMapAPI_Location.framework" custom="true" />
+
+		<framework src="CoreLocation.framework"/>
+		<framework src="QuartzCore.framework"/>
+		<framework src="OpenGLES.framework"/>
+		<framework src="SystemConfiguration.framework"/>
+		<framework src="CoreGraphics.framework"/>
+		<framework src="Security.framework"/>
+		<framework src="libsqlite3.0.tbd"/>
+		<framework src="CoreTelephony.framework"/>
+		<framework src="libstdc++.6.0.9.tbd"/>
+	</platform>
+</plugin>
