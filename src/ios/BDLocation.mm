@@ -10,7 +10,7 @@
     NSString* API_KEY = [[plistDic objectForKey:@"BDLocation"] objectForKey:@"API_KEY"];
     
     [[[BMKMapManager alloc] init] start:API_KEY generalDelegate:nil];
-
+    
     _locService = [[BMKLocationService alloc] init];
     _locService.delegate = self;
 }
@@ -63,14 +63,19 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
-        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-        [dict setValue:[dateFormatter stringFromDate:time] forKey:@"time"];
-        [dict setValue:latitude forKey:@"latitude"];
-        [dict setValue:longitude forKey:@"longitude"];
-        [dict setValue:altitude forKey:@"altitude"];
-        [dict setValue:radius forKey:@"radius"];
+        NSMutableDictionary* data = [[NSMutableDictionary alloc] init];
+        [data setValue:[dateFormatter stringFromDate:time] forKey:@"time"];
+        [data setValue:latitude forKey:@"latitude"];
+        [data setValue:longitude forKey:@"longitude"];
+        [data setValue:altitude forKey:@"altitude"];
+        [data setValue:radius forKey:@"radius"];
         
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
+        NSMutableDictionary* json = [[NSMutableDictionary alloc] init];
+        [json setValue:[NSNumber numberWithInt:0] forKey:@"code"];
+        [json setValue:@"success" forKey:@"msg"];
+        [json setValue:data forKey:@"data"];
+        
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:json];
         [result setKeepCallbackAsBool:TRUE];
         [self.commandDelegate sendPluginResult:result callbackId:_watchCommand.callbackId];
     }
