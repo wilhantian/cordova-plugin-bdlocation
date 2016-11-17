@@ -6,8 +6,9 @@
 	<description>百度定位插件</description>
 	<license>Apache 2.0</license>
 	<keywords>cordova,baidu,geolocation</keywords>
-	
-	<preference name="API_KEY"/>
+
+	<preference name="ANDROID_API_KEY"/>
+	<preference name="IOS_API_KEY"/>
 	<preference name="IOS_LOCATION_DESC" default="请点击'好'以允许访问。"/>
 
 	<engines>
@@ -47,7 +48,7 @@
 				<action android:name="com.baidu.location.service_v2.2"/>
 			</intent-filter>
 			</service>
-			<meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="$API_KEY"/>
+			<meta-data android:name="com.baidu.lbsapi.API_KEY" android:value="$ANDROID_API_KEY"/>
 		</config-file>
 
 		<!--源文件-->
@@ -73,7 +74,7 @@
 			</feature>
 		</config-file>
 
-		<!--为了能够在iOS9中正常使用非HTTPS协议-->		
+		<!--为了能够在iOS9中正常使用非HTTPS协议-->
 		<config-file parent="NSAppTransportSecurity" target="*-Info.plist">
 			<dict>
 				<key>NSAllowsArbitraryLoads</key>
@@ -86,12 +87,12 @@
 		<config-file parent="NSLocationAlwaysUsageDescription" target="*-Info.plist">
 			<string>$IOS_LOCATION_DESC</string>
 		</config-file>
-		
+
 		<!--API_KEY-->
 		<config-file parent="BDLocation" target="*-Info.plist">
 			<dict>
 				<key>API_KEY</key>
-				<string>$API_KEY</string>
+				<string>$IOS_API_KEY</string>
 			</dict>
 		</config-file>
 
