@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-bdlocation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "百度定位插件",
   "cordova": {
     "id": "cordova-plugin-bdlocation",

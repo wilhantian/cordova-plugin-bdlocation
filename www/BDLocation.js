@@ -14,6 +14,18 @@ var BDLocation = {};
 
     distanceFilter [double](仅对IOS有效 设定定位的最小更新距离 单位米)
 }
+return:
+{
+    code: int, //定位结果 locType
+    msg: string, //定位相关描述信息 locTypeDescription
+    data:{ //data失败时为空
+        time: string, //server返回的当前定位时间
+        latitude: double, // 纬度坐标 默认值Double.MIN_VALUE
+        longitude: double,// 经度坐标 默认值Double.MIN_VALUE
+        altitude: double, // 高度信息 仅在GPS模式下有效
+        radius: float, // 精度:米
+    }
+}
 */
 BDLocation.watch = function (param, success, error) {
     exec(success, error, "BDLocation", "watch", [
